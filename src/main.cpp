@@ -1,20 +1,95 @@
 //******************************************************************************
 // File name:   main.cpp
-// Author:      CS Faculty
-// Date:        xx/xx/xxxx (Replace xx/xx/xxxx with month/day/year)
-// Class:       CS150-xx (Replace xx with your section number)
-// Assignment:  Hello World
-// Purpose:     Display the message Hello World to the screen
+// Author:      Matthew Espinoza
+// Date:        09/13/2024
+// Class:       CS200-01 
+// Assignment:  Homework 3
 // Hours:       0.25
 //******************************************************************************
 
 #include <iostream>
+#include "string.h"
 
 using namespace std;
 
+
+
+// function prototypes
+void printTitle (const string& myTitle);
+string getNumber(const string& prompt);
+char getbase(const string& strNumber);
+
+/****************************************************************************
+ Function:    	main
+
+ Description: 	Base System Converter
+
+ Parameters:  	None
+ 
+ Returned:    	None
+ ****************************************************************************/
+
 int main () {
 
-  cout << "Hello World" << endl;
+  //constants
+  const string HEADING = "HEX-DECIMAL-BINARY CONVERTER";
+  const string PROMPT = "Enter your string to convert (q to quit): ";
+  const char QUIT = 'q';
+
+  //vars
+
+  string userInput;
+  int inputLength = 0;
+
+  printTitle(HEADING);
+
+  userInput = getNumber(PROMPT);
+
+  inputLength = userInput.length();
+  
+  while (userInput[0] != QUIT)
+  {
+    userInput = getNumber(PROMPT);
+  }
   
   return EXIT_SUCCESS;
+}
+
+/****************************************************************************
+ Function:    	printTitle
+
+ Description: 	Displays program title
+
+ Parameters:  	myTitle - title that is being displayed
+ 
+ Returned:    	None
+ ****************************************************************************/
+
+void printTitle (const string& myTitle) {
+  cout << "**************************************" << endl;
+  cout << "*****" << myTitle << "*****" << endl;
+  cout << "**************************************" << endl;
+}
+
+/****************************************************************************
+ Function:    	getNumber
+
+ Description: 	gets user input string
+
+ Parameters:  	prompt - message displayed to user
+ 
+ Returned:    	string - user inputed string to convert
+ ****************************************************************************/
+string getNumber(const string& prompt) {
+  string userInput;
+
+  cout << prompt;
+  cin >> userInput;
+  cout << endl;
+
+  return userInput;
+}
+
+char getbase(const string& strNumber) {
+
 }
