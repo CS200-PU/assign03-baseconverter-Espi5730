@@ -46,10 +46,13 @@ int main () {
   userInput = getNumber(PROMPT);
 
   inputLength = userInput.length();
+  cout << inputLength;
   
-  while (userInput[0] != QUIT)
+  while (!(QUIT == userInput[0] && 1 == inputLength))
   {
     userInput = getNumber(PROMPT);
+    inputLength = userInput.length();
+    cout << inputLength;
   }
   
   return EXIT_SUCCESS;
@@ -90,6 +93,21 @@ string getNumber(const string& prompt) {
   return userInput;
 }
 
+/****************************************************************************
+ Function:    	getBase
+
+ Description: 	find which base the input string is
+
+ Parameters:  	strNumber - message displayed to user
+ 
+ Returned:    	string - user inputed string to convert
+ ****************************************************************************/
+
 char getbase(const string& strNumber) {
 
+  char tmp = 'a';
+  // example code for splicing 
+  
+
+  return tmp;
 }
