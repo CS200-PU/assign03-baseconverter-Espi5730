@@ -16,8 +16,11 @@ using namespace std;
 
 // function prototypes
 void printTitle (const string& myTitle);
-string getNumber(const string& prompt);
-char getbase(const string& strNumber);
+string getNumber (const string& prompt);
+char getbase (const string& strNumber);
+void decimalOperations ();
+void binaryOperations ();
+void hexadecmialOperations ();
 
 /****************************************************************************
  Function:    	main
@@ -57,20 +60,19 @@ int main () {
 
     if (BINARY == currentBase)
     {
-      cout << "is binary";
+      binaryOperations();
     }
     else if (HEXADECIMAL == currentBase) {
-      cout << "is hexa";
+      hexadecmialOperations();
     }
     else {
-      cout << "is decimal";
-    }    
+      decimalOperations();
+    }  
 
-    cout << endl << currentBase <<endl;
+    cout << endl;  
 
     userInput = getNumber(PROMPT);
     inputLength = userInput.length();
-    cout << inputLength;
   }
   
   return EXIT_SUCCESS;
@@ -106,7 +108,6 @@ string getNumber(const string& prompt) {
 
   cout << prompt;
   cin >> userInput;
-  cout << endl;
 
   return userInput;
 }
@@ -139,7 +140,6 @@ char getbase (const string& strNumber) {
   } else {
     // if length greater then 2, check at second index
     userInput = strNumber[1];
-    cout << "this is" << userInput;
     if (INPUT_HEXACDECIMAL == userInput)
     {
       return RETURN_HEXACDECIMAL;
@@ -172,4 +172,67 @@ int hexCharToInt (char hexDigit) {
   }
 
   return returnInt;
+}
+
+
+/****************************************************************************
+ Function:    	decimalOperations
+
+ Description: 	runs all relevant operations for a decimal input
+
+ Parameters:  	none
+ 
+ Returned:    	none
+ ****************************************************************************/
+void decimalOperations () {
+  string binaryNum = "BINARY";
+  string hexaNum = "HEXA";
+
+  //calc binary and hexadecimals numbers
+
+  //output
+  cout << "The binary conversion is: 0b" << binaryNum << endl;
+  cout << "The hexadecimal conversion is: 0x" << hexaNum << endl;
+  
+}
+
+/****************************************************************************
+ Function:    	binaryOperations
+
+ Description: 	runs all relevant operations for a binary input
+
+ Parameters:  	none
+ 
+ Returned:    	none
+ ****************************************************************************/
+void binaryOperations () {
+  string decimalNum = "DECIMAL";
+  string hexaNum = "HEXA";
+
+  //calc binary and hexadecimals numbers
+
+  //output
+  cout << "The decimal conversion is: " << decimalNum << endl;
+  cout << "The hexadecimal conversion is: 0x" << hexaNum << endl;
+}
+
+/****************************************************************************
+ Function:    	hexadecmialOperations
+
+ Description: 	runs all relevant operations for a hexadecmial input
+
+ Parameters:  	none
+ 
+ Returned:    	none
+ ****************************************************************************/
+void hexadecmialOperations () {
+  string decimalNum = "DECIMAL";
+  string binaryNum = "BINARY";
+  
+
+  //calc binary and hexadecimals numbers
+
+  //output
+  cout << "The decimal conversion is: " << decimalNum << endl;
+  cout << "The binary conversion is: 0b" << binaryNum << endl;
 }
