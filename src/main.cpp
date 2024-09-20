@@ -18,9 +18,10 @@ using namespace std;
 void printTitle (const string& myTitle);
 string getNumber (const string& prompt);
 char getbase (const string& strNumber);
-void decimalOperations ();
+void decimalOperations (const string& strNumber);
 void binaryOperations ();
 void hexadecmialOperations ();
+string decimalToBinary (const string& strNumber);
 
 /****************************************************************************
  Function:    	main
@@ -66,7 +67,7 @@ int main () {
       hexadecmialOperations();
     }
     else {
-      decimalOperations();
+      decimalOperations(userInput);
     }  
 
     cout << endl;  
@@ -180,12 +181,12 @@ int hexCharToInt (char hexDigit) {
 
  Description: 	runs all relevant operations for a decimal input
 
- Parameters:  	none
+ Parameters:  	num - the number to convert
  
  Returned:    	none
  ****************************************************************************/
-void decimalOperations () {
-  string binaryNum = "BINARY";
+void decimalOperations (const string& strNumber) {
+  string binaryNum = decimalToBinary(strNumber);
   string hexaNum = "HEXA";
 
   //calc binary and hexadecimals numbers
@@ -235,4 +236,33 @@ void hexadecmialOperations () {
   //output
   cout << "The decimal conversion is: " << decimalNum << endl;
   cout << "The binary conversion is: 0b" << binaryNum << endl;
+}
+
+/****************************************************************************
+ Function:    	decimalToBinary
+
+ Description: 	takes a base 10 number and converts it to base 2
+
+ Parameters:  	strNumber - the base 10 number
+ 
+ Returned:    	the base 2 number
+ ****************************************************************************/
+string decimalToBinary (const string& strNumber) {
+  //vars
+  int decimalNum =  stoi(strNumber);
+  string binaryNum = "";
+
+  //base case
+  if (decimalNum == 0) {
+    return "0";
+  }
+  else {
+    while (decimalNum > 0)
+    {
+      binaryNum = to_string(decimalNum % 2) + binaryNum;
+      decimalNum /= 2;
+    }
+  }
+
+  return binaryNum;
 }
