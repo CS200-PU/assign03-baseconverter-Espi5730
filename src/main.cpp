@@ -7,6 +7,8 @@
 // Hours:       0.25
 //******************************************************************************
 
+#include <algorithm>
+#include <cmath>
 #include <iostream>
 #include "string.h"
 
@@ -19,10 +21,12 @@ void printTitle (const string& myTitle);
 string getNumber (const string& prompt);
 char getbase (const string& strNumber);
 void decimalOperations (const string& strNumber);
-void binaryOperations ();
+void binaryOperations (const string& strNumber);
 void hexadecmialOperations ();
 string decimalToBinary (const string& strNumber);
 string decimalToHex (const string& strNumber);
+string binaryToDecimal (const string& strNumber);
+string binaryToHex (const string& strNumber);
 
 /****************************************************************************
  Function:    	main
@@ -42,7 +46,7 @@ int main () {
   const char QUIT = 'q';
   const char BINARY = 'B';
   const char HEXADECIMAL = 'H';
-  const char DECIMAL = 'D';
+  //const char DECIMAL = 'D';
 
   //vars
   string userInput;
@@ -60,7 +64,7 @@ int main () {
     currentBase = getbase (userInput);
 
     if (BINARY == currentBase) {
-      binaryOperations ();
+      binaryOperations (userInput);
     }
     else if (HEXADECIMAL == currentBase) {
       hexadecmialOperations ();
@@ -205,9 +209,9 @@ void decimalOperations (const string& strNumber) {
 
  Returned:    	none
  ****************************************************************************/
-void binaryOperations () {
-  string decimalNum = "DECIMAL";
-  string hexaNum = "HEXA";
+void binaryOperations (const string& strNumber) {
+  string decimalNum = binaryToDecimal(strNumber);
+  string hexaNum = binaryToHex(strNumber);
 
   //calc binary and hexadecimals numbers
 
@@ -304,4 +308,48 @@ string decimalToHex (const string& strNumber) {
   }
 
   return hexNum;
+}
+
+/****************************************************************************
+ Function:    	binaryToDecimal
+
+ Description: 	takes a base 2 number and converts it to base 10
+
+ Parameters:  	strNumber - the base 2 number
+
+ Returned:    	the base 10 number
+ ****************************************************************************/
+string binaryToDecimal (const string& strNumber) {
+  string parseString;
+ 
+  int length = strNumber.length ();
+  int decimalNum = 0;
+
+  parseString = strNumber.substr(2, length - 2);
+  length -= 2;
+  //reverse string
+  reverse ( parseString.begin (),  parseString.end ());
+
+  for (int i = 0 ; i < length; i++ ){
+    decimalNum = decimalNum + ( pow(2, i) * (parseString[i] % 48));
+  }
+
+  return to_string (decimalNum);
+}
+
+/****************************************************************************
+ Function:    	binaryToHex
+
+ Description: 	takes a base 2 number and converts it to base 16
+
+ Parameters:  	strNumber - the base 2 number
+
+ Returned:    	the base 16 number
+ ****************************************************************************/
+string binaryToHex (const string& strNumber) {
+  string decimalNum;
+
+  decimalNum = binaryToDecimal(strNumber);
+
+  return decimalToHex(decimalNum);
 }
