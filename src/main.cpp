@@ -22,11 +22,13 @@ string getNumber (const string& prompt);
 char getbase (const string& strNumber);
 void decimalOperations (const string& strNumber);
 void binaryOperations (const string& strNumber);
-void hexadecmialOperations ();
+void hexadecmialOperations (const string& strNumber);
 string decimalToBinary (const string& strNumber);
 string decimalToHex (const string& strNumber);
 string binaryToDecimal (const string& strNumber);
 string binaryToHex (const string& strNumber);
+string hexToDecimal (const string& strNumber);
+string hexToBinary (const string& strNumber);
 
 /****************************************************************************
  Function:    	main
@@ -67,7 +69,7 @@ int main () {
       binaryOperations (userInput);
     }
     else if (HEXADECIMAL == currentBase) {
-      hexadecmialOperations ();
+      hexadecmialOperations (userInput);
     }
     else {
       decimalOperations (userInput);
@@ -167,15 +169,17 @@ char getbase (const string& strNumber) {
  Returned:    	int
  ****************************************************************************/
 int hexCharToInt (char hexDigit) {
-  const int LOWER_DECIMAL_ASCII = 48;
-  const int UPPER_DECIMAL_ASCII = 57;
-  int returnInt = 0;
+  const char LOWER_DECIMAL = '0';
+  const char UPPER_DECIMAL = '9';
+  const char LOWER_DECIMAL_ALPHA = 'A';
 
-  if (hexDigit > LOWER_DECIMAL_ASCII && hexDigit < UPPER_DECIMAL_ASCII) {
-    cout << "is decimal";
+  if (hexDigit >= LOWER_DECIMAL && hexDigit <= UPPER_DECIMAL) {
+    return hexDigit % LOWER_DECIMAL;
+  }
+  else {
+    return (hexDigit % LOWER_DECIMAL_ALPHA) + 10;
   }
 
-  return returnInt;
 }
 
 
@@ -229,9 +233,9 @@ void binaryOperations (const string& strNumber) {
 
  Returned:    	none
  ****************************************************************************/
-void hexadecmialOperations () {
-  string decimalNum = "DECIMAL";
-  string binaryNum = "BINARY";
+void hexadecmialOperations (const string& strNumber) {
+  string decimalNum = hexToDecimal(strNumber);
+  string binaryNum = hexToBinary(strNumber);
 
 
   //calc binary and hexadecimals numbers
@@ -352,4 +356,50 @@ string binaryToHex (const string& strNumber) {
   decimalNum = binaryToDecimal(strNumber);
 
   return decimalToHex(decimalNum);
+}
+
+
+/****************************************************************************
+ Function:    	hexToDecimal
+
+ Description: 	takes a base 16 number and converts it to base 10
+
+ Parameters:  	strNumber - the base 16 number
+
+ Returned:    	the base 10 number
+ ****************************************************************************/
+string hexToDecimal (const string& strNumber) {
+  string parseString;
+ 
+  int length = strNumber.length ();
+  int decimalNum = 0;
+
+  //remove front 2 of string
+  parseString = strNumber.substr(2, length - 2);
+  length -= 2;
+  //reverse string
+  reverse (parseString.begin (),  parseString.end ());
+
+  for (int i = 0 ; i < length; i++ ){
+    decimalNum = decimalNum + ( pow(16, i) * hexCharToInt(parseString[i]));
+  }
+
+  return to_string (decimalNum);
+}
+
+/****************************************************************************
+ Function:    	hexToBinary
+
+ Description: 	takes a base 16 number and converts it to base 2
+
+ Parameters:  	strNumber - the base 16 number
+
+ Returned:    	the base 2 number
+ ****************************************************************************/
+string hexToBinary (const string& strNumber) {
+  string decimalNum;
+
+  decimalNum = hexToDecimal(strNumber);
+
+  return decimalToBinary(decimalNum);
 }
